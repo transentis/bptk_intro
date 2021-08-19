@@ -7,7 +7,7 @@
 		<vendor>isee systems, inc.</vendor>
 		<product version="2.1" isee:build_number="2324" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
-	<sim_specs isee:sim_duration="1.27869" isee:simulation_delay="0.0213115" isee:restore_on_start="false" method="Euler" time_units="Months" isee:instantaneous_flows="false" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="1.27869" isee:simulation_delay="0.0213115" isee:restore_on_start="false" method="Euler" time_units="Months" isee:instantaneous_flows="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
 		<start>0</start>
 		<stop>60</stop>
 		<dt reciprocal="true">1</dt>
@@ -48,10 +48,7 @@
 				<eqn>100</eqn>
 			</aux>
 			<aux name="Market Saturation">
-				<eqn>Customers/Target_Market</eqn>
-			</aux>
-			<aux name="Target Market">
-				<eqn>60000</eqn>
+				<eqn>Customers/(Potential_Customers+Customers)</eqn>
 			</aux>
 			<aux name="Initial Customers">
 				<eqn>0</eqn>
@@ -67,6 +64,13 @@
 			</aux>
 			<aux name="Word of mouth success">
 				<eqn>0.01</eqn>
+			</aux>
+			<stock name="Potential Customers">
+				<eqn>Initial_Potential_Customers</eqn>
+				<outflow>Customer_Acquisition</outflow>
+			</stock>
+			<aux name="Initial Potential Customers">
+				<eqn>60000</eqn>
 			</aux>
 		</variables>
 		<views>
@@ -114,7 +118,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="white" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="818" page_height="571" isee:page_cols="2" isee:page_rows="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="818" page_height="571" isee:page_cols="2" isee:page_rows="2" isee:scroll_y="1" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -155,7 +159,7 @@
 					<from>Advertising_Success</from>
 					<to>Acquisition_through_Advertising</to>
 				</connector>
-				<connector uid="3" angle="90">
+				<connector uid="3" angle="81.7733">
 					<from>Acquisition_through_Advertising</from>
 					<to>Customer_Acquisition</to>
 				</connector>
@@ -167,15 +171,11 @@
 					<from>consumers_reached_through_advertising</from>
 					<to>Acquisition_through_Advertising</to>
 				</connector>
-				<connector uid="6" angle="75.2564">
-					<from>Target_Market</from>
-					<to>Market_Saturation</to>
-				</connector>
 				<connector uid="7" angle="90">
 					<from>Market_Saturation</from>
 					<to>consumers_reached_through_advertising</to>
 				</connector>
-				<connector uid="8" angle="17.1027">
+				<connector uid="8" angle="12.9946">
 					<from>Customers</from>
 					<to>Market_Saturation</to>
 				</connector>
@@ -183,11 +183,11 @@
 					<from>Advertising_Budget</from>
 					<to>consumers_reached_through_advertising</to>
 				</connector>
-				<stock x="476" y="102" name="Customers"/>
-				<flow x="375.5" y="108" name="Customer Acquisition">
+				<stock x="474" y="105" name="Customers"/>
+				<flow x="322" y="105" name="Customer Acquisition">
 					<pts>
-						<pt x="297.5" y="108"/>
-						<pt x="453.5" y="108"/>
+						<pt x="204.5" y="105"/>
+						<pt x="451.5" y="105"/>
 					</pts>
 				</flow>
 				<aux x="310" y="188" name="Acquisition through Advertising"/>
@@ -196,8 +196,7 @@
 				<aux x="104" y="348" name="Consumers reached per Euro"/>
 				<aux x="265" y="369" name="Advertising Budget"/>
 				<aux x="358" y="405" name="Market Saturation"/>
-				<aux x="200" y="545" name="Target Market"/>
-				<aux x="619" y="51.5" name="Initial Customers"/>
+				<aux x="527" y="32.5" name="Initial Customers"/>
 				<aux x="479" y="194" name="Acquisition through Word Of Mouth"/>
 				<connector uid="23" angle="5.19443">
 					<from>Market_Saturation</from>
@@ -207,13 +206,13 @@
 					<from>Acquisition_through_Word_Of_Mouth</from>
 					<to>Customer_Acquisition</to>
 				</connector>
-				<aux x="696" y="170" name="Contact Rate"/>
+				<aux x="637" y="282" name="Contact Rate"/>
 				<aux label_side="right" label_angle="315" x="601" y="188" name="Consumers reached through word of mouth"/>
 				<connector uid="34" angle="7.85331">
 					<from>Customers</from>
 					<to>Consumers_reached_through_word_of_mouth</to>
 				</connector>
-				<connector uid="35" angle="190.729">
+				<connector uid="35" angle="110.956">
 					<from>Contact_Rate</from>
 					<to>Consumers_reached_through_word_of_mouth</to>
 				</connector>
@@ -225,6 +224,12 @@
 				<connector uid="37" angle="92.8624">
 					<from>Word_of_mouth_success</from>
 					<to>Acquisition_through_Word_Of_Mouth</to>
+				</connector>
+				<stock x="182" y="102" name="Potential Customers"/>
+				<aux x="110" y="32.5" name="Initial Potential Customers"/>
+				<connector uid="38" angle="196.928">
+					<from>Potential_Customers</from>
+					<to>Market_Saturation</to>
 				</connector>
 			</view>
 			<view background="white" page_width="800" page_height="600" home_view="true" type="interface">

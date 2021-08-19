@@ -67,6 +67,7 @@ class simulation_model():
         
     
         'customers'          : lambda t: ( (self.memoize('initialCustomers', t)) if ( t  <=  self.starttime ) else (self.memoize('customers',t-self.dt) + self.dt * ( self.memoize('customerAcquisition',t-self.dt) )) ),
+        'potentialCustomers'          : lambda t: ( (self.memoize('initialPotentialCustomers', t)) if ( t  <=  self.starttime ) else (self.memoize('potentialCustomers',t-self.dt) + self.dt * ( -1 * ( self.memoize('customerAcquisition',t-self.dt) ) )) ),
         
     
         # Flows
@@ -83,8 +84,8 @@ class simulation_model():
         'consumersReachedThroughWordOfMouth'      : lambda t: self.memoize('customers', t) * self.memoize('contactRate', t),
         'contactRate'      : lambda t: 10.0,
         'initialCustomers'      : lambda t: 0.0,
-        'marketSaturation'      : lambda t: self.memoize('customers', t) / self.memoize('targetMarket', t),
-        'targetMarket'      : lambda t: 60000.0,
+        'initialPotentialCustomers'      : lambda t: 60000.0,
+        'marketSaturation'      : lambda t: self.memoize('customers', t) / ( self.memoize('potentialCustomers', t) + self.memoize('customers', t) ),
         'wordOfMouthSuccess'      : lambda t: 0.01,
         
     
@@ -111,9 +112,9 @@ class simulation_model():
                 
         self.dimensions_order = {}     
     
-        self.stocks = ['customers'  ]
+        self.stocks = ['customers',   'potentialCustomers'  ]
         self.flows = ['customerAcquisition'  ]
-        self.converters = ['acquisitionThroughAdvertising',   'acquisitionThroughWordOfMouth',   'advertisingBudget',   'advertisingSuccess',   'consumersReachedPerEuro',   'consumersReachedThroughAdvertising',   'consumersReachedThroughWordOfMouth',   'contactRate',   'initialCustomers',   'marketSaturation',   'targetMarket',   'wordOfMouthSuccess'  ]
+        self.converters = ['acquisitionThroughAdvertising',   'acquisitionThroughWordOfMouth',   'advertisingBudget',   'advertisingSuccess',   'consumersReachedPerEuro',   'consumersReachedThroughAdvertising',   'consumersReachedThroughWordOfMouth',   'contactRate',   'initialCustomers',   'initialPotentialCustomers',   'marketSaturation',   'wordOfMouthSuccess'  ]
         self.gf = []
         self.constants= []
         self.events = [

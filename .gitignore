@@ -4,6 +4,10 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 
+# Stella
+
+simulation_models/customer_acquisition_xmile.isdb
+
 # Jupyter
 
 .ipynb_checkpoints/

@@ -1,0 +1,27 @@
+{
+	"scenarios": {
+		"blacklist": ["nothing"],
+		"whitelist": [
+			{
+				"name": "base",
+				"displayName": "Base Case",
+				"description": ""
+			},
+			{
+				"name": "low_word_of_mouth",
+				"displayName": "Low word of mouth",
+				"description": ""
+			},
+			{
+				"name": "high_word_of_mouth",
+				"displayName": "High word of mouth",
+				"description": ""
+			},
+			{
+				"name": "interactive_scenario",
+				"displayName": "Interactive Scenario",
+				"description": ""
+			}
+		]
+	}
+}

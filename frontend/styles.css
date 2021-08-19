@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	body {
+		@apply font-transentis;
+	}
+	button:focus {
+		@apply outline-none shadow-none;
+	}
+}
+
+:root {
+	--logoSrc: url('./public/images/logoLight.svg');
+}
+
+.logoDiv {
+	background-image: var(--logoSrc);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 173px;
+	height: 55px;
+}
+
+[data-theme='transentisDark'] {
+	--logoSrc: url('./public/images/logoDark.svg');
+}
+
+[data-theme='transentisLight'] {
+	--logoSrc: url('./public/images/logoLight.svg');
+}
